@@ -3,5 +3,6 @@ const { QuestionController } = require('../Provider/ControllerDependencyInjectio
 const router = express.Router();
 
 router.post('/questions', QuestionController.createQuestionAction);
+router.put('/questions/:id', QuestionController.updateQuestionAction);
 
 module.exports = router;

@@ -4,6 +4,7 @@ const CommunicationError = require('../Error/CommunicationError');
 /**
  * @typedef {Object} QuestionRepository
  * @property {function(questionInfo: Object): Promise<Object>} createQuestion
+ * @property {function(updatedQuestionInfo, questionId): Promise<Void>} updateQuestion
  */
 
 /**
@@ -30,6 +31,22 @@ function QuestionRepository(questionModel) {
         throw new CommunicationError(`Error trying to save question doc. Error: ${error}`);
       }
     },
+    /**
+     * @param {QuestionObject} updatedQuestionInfo 
+     * @param {String} questionId 
+     * @returns {Promise<Void>}
+     */
+    updateQuestion(updatedQuestionInfo, questionId) {
+      logger.trace('Entered QuestionRepository::updateQuestion', { data: updatedQuestionInfo, id: questionId });
+      return questionModel.updateOne({ id: questionId }, { $set: updatedQuestionInfo })
+        .then(() => {
+          logger.debug('QuestionRepository::updateQuestion question updated');
+        })
+        .catch((error) => {
+          logger.error('QuestionRepository::updateQuestion error trying to save question doc.', error);
+          throw new CommunicationError(`Error trying to save question doc. Error: ${error}`);
+        });
+    }
   };
 }
 
