@@ -3,6 +3,7 @@ const logger = require('../Utils/Logger');
  * @typedef {Object} QuestionService
  * @property {function(questionInfo: Object): Promise<Object>} createQuestion
  * @property {function(updatedQuestionInfo, questionId): Promise<Void>} updateQuestion
+ * @property {function(questionId: String): Promise<Void>} deleteQuestion
  */
 
 function treatUpdatedQuestionInfo(updatedQuestionInfo) {
@@ -42,6 +43,14 @@ function QuestionService(questionRepository, idRepository) {
       const treatedUpdatedQuestionInfo = treatUpdatedQuestionInfo(updatedQuestionInfo);
       return questionRepository.updateQuestion(treatedUpdatedQuestionInfo, questionId);
     },
+    /**
+     * @param {String} questionId 
+     * @returns {Promise<Void>}
+     */
+    deleteQuestion(questionId) {
+      logger.trace('Entered QuestionService::deleteQuestion', { id: questionId });
+      return questionRepository.deleteQuestion(questionId);
+    }
   };
 }
 

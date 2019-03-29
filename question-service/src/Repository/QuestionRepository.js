@@ -4,7 +4,8 @@ const CommunicationError = require('../Error/CommunicationError');
 /**
  * @typedef {Object} QuestionRepository
  * @property {function(questionInfo: Object): Promise<Object>} createQuestion
- * @property {function(updatedQuestionInfo, questionId): Promise<Void>} updateQuestion
+ * @property {function(updatedQuestionInfo: Object, questionId: String): Promise<Void>} updateQuestion
+ * @property {function(questionId: String): Promise<Void>} deleteQuestion
  */
 
 /**
@@ -43,8 +44,23 @@ function QuestionRepository(questionModel) {
           logger.debug('QuestionRepository::updateQuestion question updated');
         })
         .catch((error) => {
-          logger.error('QuestionRepository::updateQuestion error trying to save question doc.', error);
-          throw new CommunicationError(`Error trying to save question doc. Error: ${error}`);
+          logger.error('QuestionRepository::updateQuestion error trying to update question doc.', error);
+          throw new CommunicationError(`Error trying to update question doc. Error: ${error}`);
+        });
+    },
+    /**
+     * @param {String} questionId 
+     * @returns {Promise<Void>}
+     */
+    deleteQuestion(questionId) {
+      logger.trace('Entered QuestionRepository::deleteQuestion', { id: questionId });
+      return questionModel.deleteOne({ id: questionId })
+        .then(() => {
+          logger.debug('QuestionRepository::deleteQuestion question deleted');
+        })
+        .catch((error) => {
+          logger.error('QuestionRepository::deleteQuestion error trying to delete question doc.', error);
+          throw new CommunicationError(`Error trying to delete question doc. Error: ${error}`);
         });
     }
   };
