@@ -6,6 +6,7 @@ const CommunicationError = require('../Error/CommunicationError');
  * @property {function(questionInfo: Object): Promise<Object>} createQuestion
  * @property {function(updatedQuestionInfo: Object, questionId: String): Promise<Void>} updateQuestion
  * @property {function(questionId: String): Promise<Void>} deleteQuestion
+ * @property {function(pagination: PaginationObject): Promise<{totalCount: Number, questions: Array}>} listAllQuestions
  */
 
 /**
@@ -61,6 +62,27 @@ function QuestionRepository(questionModel) {
         .catch((error) => {
           logger.error('QuestionRepository::deleteQuestion error trying to delete question doc.', error);
           throw new CommunicationError(`Error trying to delete question doc. Error: ${error}`);
+        });
+    },
+    /**
+     * @param {PaginationObject} pagination
+     * @returns {Promise<{totalCount: Number, questions: Array}>}
+     */
+    async listAllQuestions(pagination) {
+      logger.trace('Entered QuestionRepository::listAllQuestions');
+      const { pageNumber, pageSize } = pagination;
+      const totalCount = await questionModel.countDocuments({});
+      return questionModel.find({})
+        .sort({ createdAt: -1 })
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
+        .then((questions) => {
+          logger.debug('QuestionRepository::listAllQuestion questions found');
+          return { totalCount, questions };
+        })
+        .catch((error) => {
+          logger.error('QuestionRepository::listAllQuestions error trying to list questions doc.', error);
+          throw new CommunicationError(`Error trying to list questions doc. Error: ${error}`);
         });
     }
   };

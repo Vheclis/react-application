@@ -1,9 +1,11 @@
 const logger = require('../Utils/Logger');
+const ResourceNotFoundError = require('../Error/ResourceNotFoundError');
 /**
  * @typedef {Object} QuestionService
  * @property {function(questionInfo: Object): Promise<Object>} createQuestion
  * @property {function(updatedQuestionInfo, questionId): Promise<Void>} updateQuestion
  * @property {function(questionId: String): Promise<Void>} deleteQuestion
+ * @property {function(pagination: PaginationObject): Promise<{totalCount: Number, questions: Array}>} listAllQuestions
  */
 
 function treatUpdatedQuestionInfo(updatedQuestionInfo) {
@@ -50,6 +52,21 @@ function QuestionService(questionRepository, idRepository) {
     deleteQuestion(questionId) {
       logger.trace('Entered QuestionService::deleteQuestion', { id: questionId });
       return questionRepository.deleteQuestion(questionId);
+    },
+    /**
+     * @param {PaginationObject} pagination
+     * @returns {Promise<{totalCount: Number, questions: Array}>}
+     */
+    listAllQuestions(pagination) {
+      logger.trace('Entered QuestionService::listAllQuestion', { pagination });
+      return questionRepository.listAllQuestions(pagination)
+        .then((questionInfo) => {
+          if (questionInfo.totalCount <= 0) {
+            logger.warn('QuestionRepository::listAllQuestions no question found');
+            throw new ResourceNotFoundError('questions');
+          }
+          return questionInfo;
+        });      
     }
   };
 }

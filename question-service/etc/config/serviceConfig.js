@@ -9,4 +9,9 @@ config.mongo = {
   options: { useNewUrlParser: true },
 };
 
+config.pagination = {
+  defaultPageSize: 20,
+  defaultPageNumber: 1,
+}
+
 module.exports = config;
