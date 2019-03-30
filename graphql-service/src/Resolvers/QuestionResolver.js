@@ -101,6 +101,24 @@ function QuestionResolverFactory(questionCollection) {
               logger.debug('QuestionResolver::updateQuestion question updated');
               return treatObject(updatedDocument.value);
             })              
+          },
+          deleteQuestion: (root, args, context, info) => {
+            const questionId = args._id;
+            logger.trace('Entered QuestionResolver::deleteQuestion', { _id: questionId });
+            return questionCollection.deleteOne({ _id: ObjectId(questionId) })
+            .catch((error) => {
+              logger.error('QuestionResolver::deleteQuestion error trying to reach for the DB', {error: error.message});
+              throw new CommunicationError('Error trying to reach for the DB', 'QuestionResolver::deleteQuestion');
+            })
+            .then((deleteInfo) => {
+              if (deleteInfo.deletedCount === 0) {
+                logger.warn('QuestionResolver::deleteQuestion no question found with the followind id', { _id: questionId });
+                throw new ResourceNotFoundError(`question of id ${ questionId }`, 'QuestionResolver::updateQuestion');
+              }
+              const message = `Deleted ${deleteInfo.deletedCount} documents`;
+              logger.debug(`QuestionResolver::deleteQuestion. ${message}`);
+              return message;
+            });
           }
         },
       };

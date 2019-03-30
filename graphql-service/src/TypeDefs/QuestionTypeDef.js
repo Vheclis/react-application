@@ -18,8 +18,11 @@ function QuestionTypeDefFactory() {
         }
 
         type Mutation {
-          updateQuestion(_id: String!, description: String, answers: [String], theme: String, correctAnswer: String): Question 
-          createQuestion(description: String!, answers: [String!]!, theme: String!, correctAnswer: String!): Question
+          updateQuestion(_id: String!, description: String, answers: [String],
+            theme: String, correctAnswer: String): Question 
+          createQuestion(description: String!, answers: [String!]!,
+            theme: String!, correctAnswer: String!): Question
+          deleteQuestion(_id: String!): String
         }
 
         schema {
