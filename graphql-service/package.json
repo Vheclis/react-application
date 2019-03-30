@@ -1,0 +1,29 @@
+{
+  "name": "graphql-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vheclis/react-application.git"
+  },
+  "author": "Victor Heclis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vheclis/react-application/issues"
+  },
+  "homepage": "https://github.com/Vheclis/react-application#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.2.0",
+    "graphql-server-express": "^1.4.0",
+    "graphql-tools": "^4.0.4",
+    "log4js": "^4.1.0",
+    "mongodb": "^3.2.2"
+  }
+}
