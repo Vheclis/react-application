@@ -3,21 +3,21 @@ function QuestionTypeDefFactory() {
     getTypeDef() {
       return [`
         type Query {
-          question(_id: String): Question
+          question(_id: String!): Question
           questions: [Question]
         }
 
         type Question {
-          _id: String
-          description: String
-          answers: [String]
-          theme: String
-          correctAnswer: String
+          _id: String!
+          description: String!
+          answers: [String!]!
+          theme: String!
+          correctAnswer: String!
         }
 
         type Mutation {
-          createQuestion(description: String, answers: [String],
-            theme: String, correctAnswer: String): Question
+          createQuestion(description: String!, answers: [String!]!,
+            theme: String!, correctAnswer: String!): Question
         }
 
         schema {

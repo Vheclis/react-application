@@ -1,16 +1,17 @@
 version: '3'
 
 services:
-  question-service:
-    build: ../question-service
+
+  graphql-service:
+    build: ../graphql-service
     ports:
-      - 8081:80
+      - 8081:8081
     links:
       - mongo-database:question-database
     working_dir: /usr/src/app
     command: ash -c "npm install ; nodemon -L app.js"
     volumes:
-      - ../question-service:/usr/src/app
+      - ../graphql-service:/usr/src/app
     depends_on:
       - mongo-database
 

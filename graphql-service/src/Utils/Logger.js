@@ -11,12 +11,12 @@ log4js.configure({
   },
   categories: {
     default: { appenders: ['default'], level: 'debug' },
-    'manager-service': { appenders: ['default'], level: 'debug' },
+    'graphql-service': { appenders: ['default'], level: 'debug' },
   },
   replaceConsole: true,
 });
 
-const configuredLogs = log4js.getLogger('manager-service');
+const configuredLogs = log4js.getLogger('graphql-service');
 
 configuredLogs.level = config.log.level;
 

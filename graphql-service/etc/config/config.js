@@ -5,7 +5,7 @@ config.log = {
   };
 
 config.mongo = {
-    serverUri: 'mongodb://localhost:27017/questions',
+    serverUri: 'mongodb://question-database/serverDB',
     options: { useNewUrlParser: true },
 }
 

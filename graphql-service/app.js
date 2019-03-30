@@ -25,7 +25,30 @@ function serverSetup(port, schema) {
   }
   app.use(errorHandler);
 
-  app.use('/graphql', bodyParser.json(), graphqlExpress({schema}))
+  app.use('/graphql',
+    bodyParser.json(),
+    graphqlExpress({
+      schema,
+      formatError(error) {
+        let operation;
+        let code = 400;
+        if (error.originalError && error.originalError.errorLocation) {
+          operation = error.originalError.errorLocation;
+        }
+        if (error.originalError && error.originalError.code) {
+          code = error.originalError.code;
+        }
+        logger.error(`Error trying to proccess request!!`, { error: error.message });
+        return {
+          message: error.message,
+          code,
+          locations: error.locations || undefined,
+          APIErrorLocation: operation,
+          path: error.path || undefined
+        }
+      },
+    }),
+  );
 
 
   app.use('/graphiql', graphiqlExpress({
@@ -40,7 +63,7 @@ let app;
 
 QuestionSchema.getSchema()
   .then((schema) => {
-    const port = 8084;
+    const port = process.env.PORT || 8081;
     app = serverSetup(port, schema);
 
     const server = http.createServer(app);
