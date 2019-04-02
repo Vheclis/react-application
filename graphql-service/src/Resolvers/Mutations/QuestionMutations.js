@@ -1,6 +1,6 @@
-const { ObjectId } = require('mongodb');
+const mongodb = require('mongodb');
 const logger = require('../../Utils/Logger');
-const { treatObject } = require('../../Utils/MongoUtils');
+const MongoUtils = require('../../Utils/MongoUtils');
 const ResourceNotFoundError = require('../../Error/ResourceNotFoundError');
 const CommunicationError = require('../../Error/CommunicationError');
 const BadRequestError = require('../../Error/BadRequestError');
@@ -22,7 +22,7 @@ function QuestionMutationFactory(questionCollection) {
             })
             .then((response) => {
               logger.debug('QuestionResolver::createQuestion question created');
-              return treatObject(response.ops[0]);
+              return MongoUtils.treatObject(response.ops[0]);
             })
         },
         updateQuestion: (root, args, context, info) => {
@@ -36,7 +36,7 @@ function QuestionMutationFactory(questionCollection) {
           const dateNow = new Date();
           args.updatedAt = dateNow;
           return questionCollection.findOneAndUpdate(
-            { _id: ObjectId(questionId) },
+            { _id: mongodb.ObjectId(questionId) },
             { $set: args },
             { returnOriginal: false }
           )
@@ -50,13 +50,13 @@ function QuestionMutationFactory(questionCollection) {
                 throw new ResourceNotFoundError(`question of id ${questionId}`, 'QuestionResolver::updateQuestion');
               }
               logger.debug('QuestionResolver::updateQuestion question updated');
-              return treatObject(updatedDocument.value);
+              return MongoUtils.treatObject(updatedDocument.value);
             })
         },
         deleteQuestion: (root, args, context, info) => {
           const questionId = args._id;
           logger.trace('Entered QuestionResolver::deleteQuestion', { _id: questionId });
-          return questionCollection.deleteOne({ _id: ObjectId(questionId) })
+          return questionCollection.deleteOne({ _id: mongodb.ObjectId(questionId) })
             .catch((error) => {
               logger.error('QuestionResolver::deleteQuestion error trying to reach for the DB', { error: error.message });
               throw new CommunicationError('Error trying to reach for the DB', 'QuestionResolver::deleteQuestion');

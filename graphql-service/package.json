@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --recursive --ui tdd ./test/unit",
+    "lint": "./node_modules/.bin/eslint *.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,6 @@
   "homepage": "https://github.com/Vheclis/react-application#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "eslint": "^5.16.0",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.2.0",
@@ -27,5 +27,14 @@
     "lodash": "^4.17.11",
     "log4js": "^4.1.0",
     "mongodb": "^3.2.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "5.2.0",
+    "sinon": "^7.3.1"
   }
 }

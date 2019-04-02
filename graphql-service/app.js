@@ -38,7 +38,7 @@ function serverSetup(port, schema) {
         if (error.originalError && error.originalError.code) {
           code = error.originalError.code;
         }
-        logger.error(`Error trying to proccess request!!`, { error: error.message });
+        logger.error('Error trying to proccess request!!', { error: error.message });
         return {
           message: error.message,
           code,
