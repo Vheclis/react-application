@@ -57,4 +57,24 @@ QuestionFixtures.questionDefaultReturnFromMongo = {
   updatedAt: QuestionFixtures.dateNow,
 }
 
+QuestionFixtures.questionNotTreated = {
+  _id: 1226868634,
+  description: 'testDescription',
+  answers: ['one', 'two'],
+  theme: 'testTheme',
+  correctAnswer: '0',
+  createdAt: new Date('2000-10-15T00:05:32.000Z'),
+  updatedAt: new Date('2000-10-15T00:05:32.000Z'),
+}
+
+QuestionFixtures.questionTreated = {
+  _id: '1226868634',
+  description: 'testDescription',
+  answers: ['one', 'two'],
+  theme: 'testTheme',
+  correctAnswer: '0',
+  createdAt: '2000-10-15T00:05:32.000Z',
+  updatedAt: '2000-10-15T00:05:32.000Z',
+}
+
 module.exports = QuestionFixtures;

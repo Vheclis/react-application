@@ -1,6 +1,6 @@
-const { ObjectId } = require('mongodb');
+const mongodb = require('mongodb');
 const logger = require('../../Utils/Logger');
-const { treatObject } = require('../../Utils/MongoUtils');
+const MongoUtils = require('../../Utils/MongoUtils');
 const ResourceNotFoundError = require('../../Error/ResourceNotFoundError');
 const CommunicationError = require('../../Error/CommunicationError');
 
@@ -10,7 +10,7 @@ function QuestionQueryFactory(questionCollection) {
       return {
         question: (root, { _id }) => {
           logger.trace('Entered QuestionResolver::question', { _id });
-          return questionCollection.findOne(ObjectId(_id))
+          return questionCollection.findOne(mongodb.ObjectId(_id))
             .catch((error) => {
               logger.error('QuestionResolver::question error trying to reach for the DB', { error: error.message });
               throw new CommunicationError('Error trying to reach for the DB', 'QuestionResolver::question');
@@ -21,7 +21,7 @@ function QuestionQueryFactory(questionCollection) {
                 throw new ResourceNotFoundError(`question of id ${_id}`, 'QuestionResolver::question');
               }
               logger.debug('QuestionResolver::question question found');
-              return treatObject(questionObj);
+              return MongoUtils.treatObject(questionObj);
             });
         },
         questions: () => {
@@ -39,7 +39,7 @@ function QuestionQueryFactory(questionCollection) {
                 throw new ResourceNotFoundError(`questions`, 'QuestionResolver::questions');
               }
               logger.debug(`QuestionResolver::question ${questionCount} questions found`);
-              return questions.map(treatObject);
+              return questions.map(MongoUtils.treatObject);
             });
         },
       };
