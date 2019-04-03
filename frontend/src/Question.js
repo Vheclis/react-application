@@ -1,8 +1,4 @@
 const React = require('react');
-const {
-  createFragmentContainer,
-  graphql
-} = require('react-relay');
 
 class Question extends React.Component {
 
@@ -24,16 +20,5 @@ class Question extends React.Component {
   }
 }
 
-const FragmentContainer =  createFragmentContainer(Question, graphql`
-  fragment Question_question on Question {
-    _id
-    description
-    answers
-    theme
-    correctAnswer
-    createdAt
-    updatedAt
-  }
-`)
 
-export default FragmentContainer;
+export default Question;

@@ -1,9 +1,5 @@
 import React from 'react'
 import Question from './Question'
-import {
-  createFragmentContainer,
-  graphql
-} from 'react-relay'
 
 class ListPage extends React.Component {
 
@@ -21,8 +17,4 @@ class ListPage extends React.Component {
   }
 }
 
-export default createFragmentContainer(ListPage, graphql`
-  fragment ListPage_questions on Question {
-    ...Question_question
-  }
-`)
+export default ListPage
