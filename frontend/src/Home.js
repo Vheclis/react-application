@@ -7,7 +7,7 @@ import environment from './Environment'
 import ListPage from './ListPage'
 
 const HomeAllQuestionsQuery = graphql`
-  query HomeAllPostQuery {
+  query HomeAllQuestionsQuery {
     questions {
       ...ListPage_questions
     }
