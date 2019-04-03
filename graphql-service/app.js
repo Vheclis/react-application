@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const http = require('http');
 const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
 const QuestionSchema = require('./src/QuestionSchema');
@@ -26,6 +27,7 @@ function serverSetup(port, schema) {
   app.use(errorHandler);
 
   app.use('/graphql',
+    cors(),
     bodyParser.json(),
     graphqlExpress({
       schema,

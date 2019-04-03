@@ -3,12 +3,12 @@ const { expect } = require('chai');
 
 const expectedTypeDef = [`
         type Query {
-          question(_id: String!): Question
+          question(_id: ID!): Question
           questions: [Question]
         }
 
         type Question {
-          _id: String!
+          _id: ID!
           description: String!
           answers: [String!]!
           theme: String!
@@ -18,11 +18,11 @@ const expectedTypeDef = [`
         }
 
         type Mutation {
-          updateQuestion(_id: String!, description: String, answers: [String],
+          updateQuestion(_id: ID!, description: String, answers: [String],
             theme: String, correctAnswer: String): Question 
           createQuestion(description: String!, answers: [String!]!,
             theme: String!, correctAnswer: String!): Question
-          deleteQuestion(_id: String!): String
+          deleteQuestion(_id: ID!): String
         }
 
         schema {
