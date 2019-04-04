@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# generated files
+frontend/src/__generated__
+
 # production
 /build
 
