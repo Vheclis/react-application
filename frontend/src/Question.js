@@ -26,7 +26,7 @@ class Question extends React.Component {
   }
   handleDeleteClick(_id) {
     this.setState({ isDeleteLoading: true }, () => {
-      DeleteQuestionMutation(_id, () => this.props.history.replace('/'))
+      DeleteQuestionMutation(_id, window.location.reload())
       this.setState({ isDeleteLoading: false });
     });
   }

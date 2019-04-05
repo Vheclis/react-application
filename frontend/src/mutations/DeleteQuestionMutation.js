@@ -2,7 +2,6 @@ import {
   commitMutation,
   graphql,
 } from 'react-relay'
-import { ConnectionHandler } from 'relay-runtime'
 import environment from '../Environment'
 
 const mutation = graphql`
@@ -21,7 +20,7 @@ export default (id, callback) => {
     {
       mutation,
       variables,
-      onCompleted: (response, errors) => {
+      onCompleted: () => {
         callback()
       },
       onError: err => console.error(err),
