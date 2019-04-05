@@ -68,7 +68,10 @@ function QuestionMutationFactory(questionCollection) {
               }
               const message = `Deleted ${deleteInfo.deletedCount} documents`;
               logger.debug(`QuestionResolver::deleteQuestion. ${message}`);
-              return message;
+              return {
+                _id: questionId,
+                deletedCount: deleteInfo.deletedCount,
+              };
             });
         }
       };

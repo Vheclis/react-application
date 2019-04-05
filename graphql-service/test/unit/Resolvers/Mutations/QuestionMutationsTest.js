@@ -139,7 +139,7 @@ describe('QuestionMutation', () => {
     })
   });
   describe('deleteQuestion', () => {
-    it('should delete the question of _id from the DB', () => {
+    it('should delete the question of _id from the DB', (done) => {
       const argMock = { _id: 'someHash' };
       ObjectIdStub
         .withArgs('someHash')
@@ -149,12 +149,16 @@ describe('QuestionMutation', () => {
         .withArgs({ _id: 'someHash' })
         .resolves({ deletedCount: 1 });
       
-      expectedResponse = 'Deleted 1 documents'
+      expectedResponse = {
+        _id: argMock._id,
+        deletedCount: 1
+      }
       questionMutation.deleteQuestion(null, argMock, null, null)
         .then((response) => {
           sinon.assert.calledOnce(ObjectIdStub);
           sinon.assert.calledOnce(deleteQuestionStub);
           expect(response).to.eql(expectedResponse);
+          done();
         })
     });
     it('should throw ResourceNotFoundError when no file returned from db', (done) => {
