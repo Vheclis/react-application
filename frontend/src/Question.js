@@ -2,10 +2,9 @@ import React from 'react';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import { Form, FormGroup, Row, Col } from 'react-bootstrap'
-
-const getVariant = (correctAnswer, index) =>
-  parseInt(correctAnswer) === index ? "success" : "secondary"
+import { withRouter } from 'react-router-dom'
+import { Form, FormGroup, Row, Col, Button } from 'react-bootstrap'
+import DeleteQuestionMutation from './mutations/DeleteQuestionMutation'
 
 const answerButton = (answer, index) =>
   <Row key={index}>
@@ -13,6 +12,31 @@ const answerButton = (answer, index) =>
   </Row>
 
 class Question extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleDeleteClick = this
+      .handleDeleteClick.bind(this, this.props.question._id);
+    this.handleUpdateClick = this
+      .handleUpdateClick.bind(this, this.props.question._id);
+    this.state = {
+      isDeleteLoading: false,
+      isUpdateLoading: false,
+    }
+  }
+  handleDeleteClick(_id) {
+    this.setState({ isDeleteLoading: true }, () => {
+      DeleteQuestionMutation(_id, () => this.props.history.replace('/'))
+      this.setState({ isDeleteLoading: false });
+    });
+  }
+  handleUpdateClick(_id) {
+    this.setState({ isUpdateLoading: true }, () => {
+      console.log("clicou " + _id)
+      this.setState({ isUpdateLoading: false });
+    });
+  }
+
   render () {
     return (
       <div className="question-config">
@@ -31,7 +55,25 @@ class Question extends React.Component {
           <FormGroup as={Row} controlId="formHorizontalTheme">
             <Form.Label column sm={2}>Theme</Form.Label>
             <Col sm={9}><p>{this.props.question.theme}</p></Col>
-          </FormGroup>          
+          </FormGroup>       
+          <div>
+          <Button
+            variant="danger"
+            className="button-config"
+            disabled={this.state.isDeleteLoading}
+            onClick={!this.state.isDeleteLoading ? this.handleDeleteClick : null}
+          >
+            {this.state.isDeleteLoading ? 'Loading…' : 'Delete'}
+          </Button>
+          <Button
+            variant="warning"
+            className="button-config"
+            disabled={this.state.isUpdateLoading}
+            onClick={!this.state.isUpdateLoading ? this.handleUpdateClick : null}
+          >
+            {this.state.isUpdateLoading ? 'Loading…' : 'Update'}
+          </Button>
+          </div>   
         </Form>
       </div>
     )
@@ -41,4 +83,4 @@ class Question extends React.Component {
   }
 }
 
-export default Question;
+export default withRouter(Question);

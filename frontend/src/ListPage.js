@@ -1,12 +1,12 @@
 import React from 'react'
 import './index.css'
 import Question from './Question'
+import { Link } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 
 class ListPage extends React.Component {
 
   render () {
-    console.log(this.props)
     return (
         <Container className="container-config">
           <Row >

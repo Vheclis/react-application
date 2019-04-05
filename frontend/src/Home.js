@@ -7,7 +7,7 @@ import environment from './Environment'
 import ListPage from './ListPage'
 
 const HomeAllQuestionsQuery = graphql`
-  query HomeAllQuestionsQuery {
+  query HomeAllQuestionsQuery @connection(key: "HomeAllQuestionsQuery", filters: []) {
     questions {
       _id
       description

@@ -17,9 +17,21 @@ code {
   max-width: 600px;
 }
 
+.form-config {
+  padding: 15px 15px 15px 15px;
+  background-color: #d5efe2;
+  margin: 15px 15px 15px 15px;
+  border-radius: 10px;
+}
+
 .question-config {
   padding: 15px 15px 15px 15px;
   background-color: #d5efe2;
   margin: 15px 15px 15px 15px;
   border-radius: 10px;
+}
+
+.button-config {
+  margin-right: 20px;
+  min-width: 80px;
 }

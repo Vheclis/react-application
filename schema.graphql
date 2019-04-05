@@ -1,7 +1,12 @@
+type DeletionInformation {
+  deletedCount: Int
+  _id: ID
+}
+
 type Mutation {
   updateQuestion(_id: ID!, description: String, answers: [String], theme: String, correctAnswer: String): Question
   createQuestion(description: String!, answers: [String!]!, theme: String!, correctAnswer: String!): Question
-  deleteQuestion(_id: ID!): String
+  deleteQuestion(_id: ID!): DeletionInformation
 }
 
 type Query {
