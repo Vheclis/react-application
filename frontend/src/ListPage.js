@@ -1,28 +1,24 @@
 import React from 'react'
+import './index.css'
 import Question from './Question'
-import {
-  createFragmentContainer,
-  graphql
-} from 'react-relay'
+import { Container, Row, Col } from 'react-bootstrap'
 
 class ListPage extends React.Component {
 
   render () {
     console.log(this.props)
     return (
-      <div className='w-100 flex justify-center'>
-        <div className='w-100' style={{ maxWidth: 400 }}>
-          {this.props.questions.map((question) => 
-            <Question key={question._id} question={question}/>
-          )}
-        </div>
-      </div>
+        <Container className="container-config">
+          <Row >
+            <Col>
+              {this.props.questions.map((question) => 
+                <Question key={question._id} question={question}/>
+              )}
+            </Col>
+          </Row>
+        </Container>
     )
   }
 }
 
-export default createFragmentContainer(ListPage, graphql`
-  fragment ListPage_questions on Question {
-    ...Question_question
-  }
-`)
+export default ListPage

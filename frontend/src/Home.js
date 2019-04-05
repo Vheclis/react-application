@@ -9,7 +9,13 @@ import ListPage from './ListPage'
 const HomeAllQuestionsQuery = graphql`
   query HomeAllQuestionsQuery {
     questions {
-      ...ListPage_questions
+      _id
+      description
+      answers
+      theme
+      correctAnswer
+      createdAt
+      updatedAt
     }
   }
 `
@@ -25,7 +31,7 @@ class Home extends Component {
             if (error) {
               return <div>{error.message}</div>
             } else if (props) {
-              return <ListPage questions={props.questions} />
+              return <ListPage questions={props.questions}/>
             }
             return <div>Loading</div>
           }}

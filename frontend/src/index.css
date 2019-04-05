@@ -12,3 +12,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.container-config {
+  max-width: 600px;
+}
+
+.question-config {
+  padding: 15px 15px 15px 15px;
+  background-color: #d5efe2;
+  margin: 15px 15px 15px 15px;
+  border-radius: 10px;
+}

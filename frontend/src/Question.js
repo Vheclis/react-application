@@ -1,21 +1,38 @@
-const React = require('react');
-const {
-  createFragmentContainer,
-  graphql
-} = require('react-relay');
+import React from 'react';
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+import { Form, FormGroup, Row, Col } from 'react-bootstrap'
+
+const getVariant = (correctAnswer, index) =>
+  parseInt(correctAnswer) === index ? "success" : "secondary"
+
+const answerButton = (answer, index) =>
+  <Row key={index}>
+    <p>{index + 1}) {answer}</p>
+  </Row>
 
 class Question extends React.Component {
-
   render () {
     return (
-      <div className='pa3 bg-black-05 ma3'>
-        <div className='pt3'>
-          <span>Descripion: </span>{this.props.question.description} <br/>
-          <span>Answers: </span>{this.props.question.answers} <br/>
-          <span>Theme: </span>{this.props.question.theme} <br/>
-          <span>Correct Answers: </span>{this.props.question.correctAnswer} <br/>
-          
-        </div>
+      <div className="question-config">
+        <Form >
+          <FormGroup as={Row} controlId="formHorizontalDescription">
+            <Form.Label column sm={2}>Descripion</Form.Label>
+            <Col sm={9}><p>{this.props.question.description}</p></Col>
+          </FormGroup>
+          <FormGroup as={Row} controlId="formHorizontalAnswers">
+            <Form.Label column sm={2}>Answers</Form.Label>
+            <Col sm={9}>
+              {this.props.question.answers
+                .map((answer, index) => answerButton(answer,index))}
+            </Col>
+          </FormGroup>
+          <FormGroup as={Row} controlId="formHorizontalTheme">
+            <Form.Label column sm={2}>Theme</Form.Label>
+            <Col sm={9}><p>{this.props.question.theme}</p></Col>
+          </FormGroup>          
+        </Form>
       </div>
     )
   }
@@ -24,16 +41,4 @@ class Question extends React.Component {
   }
 }
 
-const FragmentContainer =  createFragmentContainer(Question, graphql`
-  fragment Question_question on Question {
-    _id
-    description
-    answers
-    theme
-    correctAnswer
-    createdAt
-    updatedAt
-  }
-`)
-
-export default FragmentContainer;
+export default Question;
