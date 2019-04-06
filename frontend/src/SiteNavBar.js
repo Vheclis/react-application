@@ -1,41 +1,9 @@
 import React from 'react'
 import './index.css';
-import { Redirect } from 'react-router-dom'
-import { Navbar, Button } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
+import { Navbar } from 'react-bootstrap'
 
 class SiteNavBar extends React.Component {
-
-  state = {
-    shouldRedirectToCreate: false,
-    shouldRedirectToHome: true,
-  }
-
-  setRedirect = (destination) => {
-    if (destination === 'create') {
-      this.setState({
-        shouldRedirectToCreate: true,
-      })
-    } else {
-      this.setState({
-        shouldRedirectToHome: true,
-      })
-    }
-  }
-
-  renderRedirect = () => {
-    if (this.state.shouldRedirectToCreate) {
-      this.setState({
-        shouldRedirectToCreate: false,
-      })
-      return <Redirect to='/create' />
-    } else if (this.state.shouldRedirectToHome) {
-      this.setState({
-        shouldRedirectToHome: false,
-      })
-      return <Redirect to='/' />
-    }
-  }
-
   render() {
     return (
       <Navbar
@@ -47,16 +15,20 @@ class SiteNavBar extends React.Component {
       >
         <Navbar.Brand
           href=""
-          onClick={() => this.setRedirect('home')}
         >Questions Collector</Navbar.Brand>
-        {this.renderRedirect()}
-        <div class="collapse navbar-collapse" id="navbarColor03">
-          <Button
-            onClick={() => this.setRedirect('create')}
+        <div className="collapse navbar-collapse" id="navbarColor03">
+          <NavLink
+            to="/"
             className="btn btn-secondary my-2 my-sm-0 pull-right navbar-button"
           >
-            Create Question
-          </Button>
+            Home
+          </NavLink>
+          <NavLink
+            to="/create"
+            className="btn btn-secondary my-2 my-sm-0 pull-right navbar-button"
+          >
+            + Create Question
+          </NavLink>
         </div>
       </Navbar>
     )

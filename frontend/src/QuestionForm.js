@@ -49,7 +49,8 @@ class QuestionForm extends React.Component {
     let newAnswers;
     const answers = this.state.answers;
     if (typeof answers[key] === 'undefined') {
-      newAnswers = [...answers, e.target.value];
+      newAnswers = [...answers];
+      newAnswers[key] = e.target.value
     } else {
       newAnswers = answers.map((answer, index) => {
         if (index === key) {
@@ -121,7 +122,6 @@ class QuestionForm extends React.Component {
                 handleChange={this.handleChangeOnAnswear}
                 answersAmount={this.state.answersAmount}
               />
-              {console.log('answersAmount', this.state.answersAmount)}
             </Form.Group>
           </Form.Row>
 

@@ -27,13 +27,6 @@ export default function UpdateQuestionMutation(_id, description, answers, theme,
       mutation,
       variables,
       onCompleted: () => {
-        console.log({
-          id: _id,
-          description,
-          answers,
-          theme,
-          correctAnswer
-        })
         callback()
       },
       onError: err => console.error(err),
