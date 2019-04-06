@@ -15,9 +15,27 @@ class QuestionForm extends React.Component {
     shouldRerender: false,
   }
 
+  mutationIndexObject = {
+    update: (state, props) => props.mutation(
+      props._id,
+      state.description,
+      state.answers,
+      state.theme,
+      state.correctAnswer,
+      () => props.history.replace('/')
+    ),
+    create: (state, props) => props.mutation(
+      state.description,
+      state.answers,
+      state.theme,
+      state.correctAnswer,
+      () => props.history.replace('/')
+    )
+  }
+
   removeAnswer = () => {
-    const newAnswers = this.state.answers;
-    newAnswers.pop();
+    const answers = this.state.answers;
+    const newAnswers = answers.slice(0, -1)
     this.setState({
       answers: newAnswers,
     });
@@ -28,35 +46,27 @@ class QuestionForm extends React.Component {
   };
 
   handleChangeOnAnswear = (e, key) => {
+    let newAnswers;
     const answers = this.state.answers;
     if (typeof answers[key] === 'undefined') {
-      answers[key] = (e.target.value)
-      this.setState({ answers });
+      newAnswers = [...answers, e.target.value];
     } else {
-      const newAnswers = answers.map((answer, index) => {
+      newAnswers = answers.map((answer, index) => {
         if (index === key) {
           return e.target.value
         }
         return answer
       })
-      this.setState({ answers: newAnswers });
     }
+    this.setState({ answers: newAnswers });
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
     const {
-      description,
-      answers,
-      theme,
-      correctAnswer,
       mutationAction
     } = this.state;
-    if (mutationAction === 'update') {
-      console.log(this.props._id, description, answers, theme, correctAnswer)
-      this.props.mutation(this.props._id, description, answers, theme, correctAnswer, () => this.props.history.replace('/'))
-    }
-    this.props.mutation(description, answers, theme, correctAnswer, () => this.props.history.replace('/'))
+    this.mutationIndexObject[mutationAction](this.state, this.props)
   }
 
   changeAnswersCount = (operation) => {
@@ -64,7 +74,8 @@ class QuestionForm extends React.Component {
     if (operation === 'sum') {
       answersAmount += 1
     } else {
-      if (this.state.answers.length >= answersAmount) {
+      if (this.state.answers.length >= answersAmount &&
+          this.state.answers.length > 1) {
         this.removeAnswer()
       }
       answersAmount = answersAmount > 1 ? answersAmount - 1 : answersAmount

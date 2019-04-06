@@ -9,10 +9,6 @@ const mutation = graphql`
     $theme: String!, $correctAnswer: String!) {
       updateQuestion(_id: $id, description: $description, answers: $answers, theme: $theme, correctAnswer: $correctAnswer) {
       _id
-      description
-      answers
-      theme
-      correctAnswer
     }
   }
 `;
@@ -31,6 +27,13 @@ export default function UpdateQuestionMutation(_id, description, answers, theme,
       mutation,
       variables,
       onCompleted: () => {
+        console.log({
+          id: _id,
+          description,
+          answers,
+          theme,
+          correctAnswer
+        })
         callback()
       },
       onError: err => console.error(err),

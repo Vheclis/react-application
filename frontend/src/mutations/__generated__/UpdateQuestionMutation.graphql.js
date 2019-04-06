@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7d13b65d8545b8a8f648f5cbb701bec7
+ * @relayHash c61bdcdb74ec27bba1fe69580d4ce3ae
  */
 
 /* eslint-disable */
@@ -18,11 +18,7 @@ export type UpdateQuestionMutationVariables = {|
 |};
 export type UpdateQuestionMutationResponse = {|
   +updateQuestion: ?{|
-    +_id: string,
-    +description: string,
-    +answers: $ReadOnlyArray<string>,
-    +theme: string,
-    +correctAnswer: string,
+    +_id: string
   |}
 |};
 export type UpdateQuestionMutation = {|
@@ -42,10 +38,6 @@ mutation UpdateQuestionMutation(
 ) {
   updateQuestion(_id: $id, description: $description, answers: $answers, theme: $theme, correctAnswer: $correctAnswer) {
     _id
-    description
-    answers
-    theme
-    correctAnswer
   }
 }
 */
@@ -130,34 +122,6 @@ v1 = [
         "name": "_id",
         "args": null,
         "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "description",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "answers",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "theme",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "correctAnswer",
-        "args": null,
-        "storageKey": null
       }
     ]
   }
@@ -182,11 +146,11 @@ return {
     "operationKind": "mutation",
     "name": "UpdateQuestionMutation",
     "id": null,
-    "text": "mutation UpdateQuestionMutation(\n  $id: ID!\n  $description: String!\n  $answers: [String!]!\n  $theme: String!\n  $correctAnswer: String!\n) {\n  updateQuestion(_id: $id, description: $description, answers: $answers, theme: $theme, correctAnswer: $correctAnswer) {\n    _id\n    description\n    answers\n    theme\n    correctAnswer\n  }\n}\n",
+    "text": "mutation UpdateQuestionMutation(\n  $id: ID!\n  $description: String!\n  $answers: [String!]!\n  $theme: String!\n  $correctAnswer: String!\n) {\n  updateQuestion(_id: $id, description: $description, answers: $answers, theme: $theme, correctAnswer: $correctAnswer) {\n    _id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '151ff3c02882a71f268c9e9bd2895b81';
+(node/*: any*/).hash = '389c564fff0ebaae7574f1031a217298';
 module.exports = node;
