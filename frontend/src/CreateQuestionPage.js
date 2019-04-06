@@ -7,6 +7,8 @@ class CreateQuestionPage extends React.Component {
   render() {
     return (
       <QuestionForm
+        answersAmount={1}
+        mutationAction='create'
         description=''
         answers={[]}
         theme=''

@@ -2,39 +2,38 @@ import React from 'react';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { Form, FormGroup, Row, Col, Button } from 'react-bootstrap'
 import DeleteQuestionMutation from './mutations/DeleteQuestionMutation'
 
-const answerButton = (answer, index) =>
+const answerText = (answer, index) =>
   <Row key={index}>
     <p>{index + 1}) {answer}</p>
   </Row>
 
 class Question extends React.Component {
-  constructor(props, context) {
-    super(props, context);
 
-    this.handleDeleteClick = this
-      .handleDeleteClick.bind(this, this.props.question._id);
-    this.handleUpdateClick = this
-      .handleUpdateClick.bind(this, this.props.question._id);
-    this.state = {
-      isDeleteLoading: false,
-      isUpdateLoading: false,
+  state = {
+    shouldRedirect: false,
+  }
+
+  setRedirect = () => {
+    this.setState({
+      shouldRedirect: true,
+    })
+  }
+
+  renderRedirect = () => {
+    if (this.state.shouldRedirect) {
+      return <Redirect to={{
+        pathname: '/update',
+        state: this.props.question
+      }} />
     }
   }
+
   handleDeleteClick(_id) {
-    this.setState({ isDeleteLoading: true }, () => {
-      DeleteQuestionMutation(_id, window.location.reload())
-      this.setState({ isDeleteLoading: false });
-    });
-  }
-  handleUpdateClick(_id) {
-    this.setState({ isUpdateLoading: true }, () => {
-      console.log("clicou " + _id)
-      this.setState({ isUpdateLoading: false });
-    });
+    DeleteQuestionMutation(_id, window.location.reload());
   }
 
   render () {
@@ -49,7 +48,7 @@ class Question extends React.Component {
             <Form.Label column sm={2}>Answers</Form.Label>
             <Col sm={9}>
               {this.props.question.answers
-                .map((answer, index) => answerButton(answer,index))}
+                .map((answer, index) => answerText(answer,index))}
             </Col>
           </FormGroup>
           <FormGroup as={Row} controlId="formHorizontalTheme">
@@ -60,18 +59,17 @@ class Question extends React.Component {
           <Button
             variant="danger"
             className="button-config"
-            disabled={this.state.isDeleteLoading}
-            onClick={!this.state.isDeleteLoading ? this.handleDeleteClick : null}
+            onClick={() => this.handleDeleteClick(this.props.question._id)}
           >
-            {this.state.isDeleteLoading ? 'Loading…' : 'Delete'}
+            Delete
           </Button>
+          {this.renderRedirect()}
           <Button
             variant="warning"
             className="button-config"
-            disabled={this.state.isUpdateLoading}
-            onClick={!this.state.isUpdateLoading ? this.handleUpdateClick : null}
+            onClick={this.setRedirect}
           >
-            {this.state.isUpdateLoading ? 'Loading…' : 'Update'}
+            Update
           </Button>
           </div>   
         </Form>

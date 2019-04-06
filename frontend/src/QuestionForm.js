@@ -1,9 +1,7 @@
 import React from 'react'
 import "./index.css"
-import { Form, Col, Button, Container} from 'react-bootstrap'
+import { Form, Col, Button, Container } from 'react-bootstrap'
 import Answers from './Answers'
-
-let answersAmount = 1;
 
 class QuestionForm extends React.Component {
 
@@ -12,7 +10,17 @@ class QuestionForm extends React.Component {
     answers: this.props.answers,
     theme: this.props.theme,
     correctAnswer: this.props.correctAnswer,
+    mutationAction: this.props.mutationAction,
+    answersAmount: this.props.answersAmount,
     shouldRerender: false,
+  }
+
+  removeAnswer = () => {
+    const newAnswers = this.state.answers;
+    newAnswers.pop();
+    this.setState({
+      answers: newAnswers,
+    });
   }
 
   handleChange = e => {
@@ -20,33 +28,48 @@ class QuestionForm extends React.Component {
   };
 
   handleChangeOnAnswear = (e, key) => {
-    const { answers } = this.state;
+    const answers = this.state.answers;
     if (typeof answers[key] === 'undefined') {
-      answers.push(e.target.value)
+      answers[key] = (e.target.value)
+      this.setState({ answers });
     } else {
-      answers[key] = e.target.value
+      const newAnswers = answers.map((answer, index) => {
+        if (index === key) {
+          return e.target.value
+        }
+        return answer
+      })
+      this.setState({ answers: newAnswers });
     }
-    this.setState({ answers });
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const { 
+    const {
       description,
       answers,
       theme,
-      correctAnswer
+      correctAnswer,
+      mutationAction
     } = this.state;
+    if (mutationAction === 'update') {
+      console.log(this.props._id, description, answers, theme, correctAnswer)
+      this.props.mutation(this.props._id, description, answers, theme, correctAnswer, () => this.props.history.replace('/'))
+    }
     this.props.mutation(description, answers, theme, correctAnswer, () => this.props.history.replace('/'))
   }
 
   changeAnswersCount = (operation) => {
+    let answersAmount = this.state.answersAmount;
     if (operation === 'sum') {
       answersAmount += 1
     } else {
+      if (this.state.answers.length >= answersAmount) {
+        this.removeAnswer()
+      }
       answersAmount = answersAmount > 1 ? answersAmount - 1 : answersAmount
     }
-    this.setState({ shouldRerender: true });
+    this.setState({ shouldRerender: true, answersAmount });
   }
 
   render() {
@@ -60,6 +83,7 @@ class QuestionForm extends React.Component {
             <Form.Group as={Col} controlId="formGridDescription">
               <Form.Label>Description</Form.Label>
               <Form.Control
+                defaultValue={this.state.description}
                 onChange={this.handleChange}
                 name="description"
                 placeholder="Enter a description"
@@ -81,16 +105,19 @@ class QuestionForm extends React.Component {
                 onClick={() => this.changeAnswersCount('subtract')}
               >-</Button>
               <Answers
+                mutationAction={this.state.mutationAction}
+                answers={this.state.answers}
                 handleChange={this.handleChangeOnAnswear}
-                answersAmount={answersAmount}
+                answersAmount={this.state.answersAmount}
               />
-
+              {console.log('answersAmount', this.state.answersAmount)}
             </Form.Group>
           </Form.Row>
 
           <Form.Group controlId="formGridAddress1">
             <Form.Label>Theme</Form.Label>
             <Form.Control
+              defaultValue={this.state.theme}
               onChange={this.handleChange}
               name="theme"
               placeholder="Enter a theme"
@@ -101,6 +128,7 @@ class QuestionForm extends React.Component {
           <Form.Group controlId="formGridAddress2">
             <Form.Label>Correct Answer</Form.Label>
             <Form.Control
+              defaultValue={this.state.correctAnswer}
               onChange={this.handleChange}
               name="correctAnswer"
               placeholder="Enter the correct answer - 1) or 2) or 3) ..."
