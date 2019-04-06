@@ -1,6 +1,7 @@
 import React from 'react'
 import "./index.css"
 import { withRouter } from 'react-router-dom'
+import { QueryRenderer, graphql } from 'react-relay'
 import { Form, Col, Button, Container} from 'react-bootstrap'
 import Answers from './Answers'
 import CreateQuestionMutation from './mutations/CreateQuestionMutation'
@@ -41,7 +42,14 @@ class CreateQuestionPage extends React.Component {
   }
 
   handleSubmit = (e) => {
-    console.log(this.state);
+    e.preventDefault()
+    const { 
+      description,
+      answers,
+      theme,
+      correctAnswer
+    } = this.state;
+    CreateQuestionMutation(description, answers, theme, correctAnswer, () => this.props.history.replace('/'))
   }
 
   render() {
