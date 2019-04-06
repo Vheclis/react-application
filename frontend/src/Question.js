@@ -1,7 +1,5 @@
 import React from 'react';
 import './index.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
 import { withRouter, Redirect } from 'react-router-dom'
 import { Form, FormGroup, Row, Col, Button } from 'react-bootstrap'
 import DeleteQuestionMutation from './mutations/DeleteQuestionMutation'

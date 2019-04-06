@@ -19,14 +19,13 @@ code {
 
 .form-config {
   padding: 15px 15px 15px 15px;
-  background-color: #d5efe2;
   margin: 15px 15px 15px 15px;
   border-radius: 10px;
 }
 
 .question-config {
   padding: 15px 15px 15px 15px;
-  background-color: #d5efe2;
+  background-color: #606670;
   margin: 15px 15px 15px 15px;
   border-radius: 10px;
 }
@@ -37,8 +36,17 @@ code {
 }
 
 .minor-button {
-  min-width: 35px;
+  min-width: 50px;
   margin: 5px 5px 5px 5px;
+}
+
+.navbar-header {
+  margin-left:5px;
+  width:100%;
+}
+
+.navbar-button {
+  margin-top: 10px;
 }
 
 .answer {

@@ -92,7 +92,7 @@ class QuestionForm extends React.Component {
         >
           <Form.Row>
             <Form.Group as={Col} controlId="formGridDescription">
-              <Form.Label>Description</Form.Label>
+              <Form.Label><h2>Description</h2></Form.Label>
               <Form.Control
                 defaultValue={this.state.description}
                 onChange={this.handleChange}
@@ -104,15 +104,15 @@ class QuestionForm extends React.Component {
 
             <Form.Group as={Col} controlId="formGridAnswers">
 
-              <Form.Label>Answers</Form.Label>
+              <Form.Label><h2>Answers</h2></Form.Label>
               <Button
                 variant="success"
-                className="minor-button"
+                className="btn-sm minor-button"
                 onClick={() => this.changeAnswersCount('sum')}
               >+</Button>
               <Button
                 variant="danger"
-                className="minor-button"
+                className="btn-sm minor-button"
                 onClick={() => this.changeAnswersCount('subtract')}
               >-</Button>
               <Answers
@@ -126,7 +126,7 @@ class QuestionForm extends React.Component {
           </Form.Row>
 
           <Form.Group controlId="formGridAddress1">
-            <Form.Label>Theme</Form.Label>
+            <Form.Label><h2>Theme</h2></Form.Label>
             <Form.Control
               defaultValue={this.state.theme}
               onChange={this.handleChange}
@@ -137,7 +137,7 @@ class QuestionForm extends React.Component {
           </Form.Group>
 
           <Form.Group controlId="formGridAddress2">
-            <Form.Label>Correct Answer</Form.Label>
+            <Form.Label><h2>Correct Answer</h2></Form.Label>
             <Form.Control
               defaultValue={this.state.correctAnswer}
               onChange={this.handleChange}
