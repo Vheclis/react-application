@@ -2,6 +2,7 @@ import React from 'react'
 import "../index.css"
 import { Form, Col, Button, Container } from 'react-bootstrap'
 import Answers from './Answers'
+import MutationIndex from '../mutations/MutationIndex'
 
 class QuestionForm extends React.Component {
 
@@ -13,24 +14,6 @@ class QuestionForm extends React.Component {
     mutationAction: this.props.mutationAction,
     answersAmount: this.props.answersAmount,
     shouldRerender: false,
-  }
-
-  mutationIndexObject = {
-    update: (state, props) => props.mutation(
-      props._id,
-      state.description,
-      state.answers,
-      state.theme,
-      state.correctAnswer,
-      () => props.history.replace('/')
-    ),
-    create: (state, props) => props.mutation(
-      state.description,
-      state.answers,
-      state.theme,
-      state.correctAnswer,
-      () => props.history.replace('/')
-    )
   }
 
   removeAnswer = () => {
@@ -67,7 +50,7 @@ class QuestionForm extends React.Component {
     const {
       mutationAction
     } = this.state;
-    this.mutationIndexObject[mutationAction](this.state, this.props)
+    MutationIndex[mutationAction](this.state, this.props)
   }
 
   changeAnswersCount = (operation) => {
@@ -125,7 +108,7 @@ class QuestionForm extends React.Component {
             </Form.Group>
           </Form.Row>
 
-          <Form.Group controlId="formGridAddress1">
+          <Form.Group controlId="formGridTheme">
             <Form.Label><h2>Theme</h2></Form.Label>
             <Form.Control
               defaultValue={this.state.theme}
@@ -136,7 +119,7 @@ class QuestionForm extends React.Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="formGridAddress2">
+          <Form.Group controlId="formGridAnswer">
             <Form.Label><h2>Correct Answer</h2></Form.Label>
             <Form.Control
               defaultValue={this.state.correctAnswer}
