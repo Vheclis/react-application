@@ -11,7 +11,7 @@ npm test
 ## Subindo o sistema
 Para subir o sistema recomendamos seguir o README que se encontra na root do projeto, uma vez que esse sistema está configurado para usar as conexões do docker para conversar com o mongoDB.
 
-## Arquitetura
+## Arquitetura/Diretórios
 
 ### etc/para o sistema.
 Aqui temos todas as configs necessárias para o sistema.
