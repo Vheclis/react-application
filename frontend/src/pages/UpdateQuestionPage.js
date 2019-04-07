@@ -1,7 +1,7 @@
 import React from 'react'
-import "./index.css"
-import QuestionForm from './QuestionForm'
-import UpdateQuestionMutation from './mutations/UpdateQuestionMutation'
+import "../index.css"
+import QuestionForm from '../components/QuestionForm'
+import UpdateQuestionMutation from '../mutations/UpdateQuestionMutation'
 
 class UpdateQuestionPage extends React.Component {
 

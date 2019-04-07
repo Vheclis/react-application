@@ -1,5 +1,5 @@
 import React from 'react'
-import "./index.css"
+import "../index.css"
 import { Form, Col, Button, Container } from 'react-bootstrap'
 import Answers from './Answers'
 

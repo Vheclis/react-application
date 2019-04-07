@@ -3,11 +3,11 @@ import {
   QueryRenderer,
   graphql
 } from 'react-relay'
-import environment from './Environment'
-import ListPage from './ListPage'
+import environment from '../Environment'
+import QuestionsList from '../components/QuestionList'
 
-const HomeAllQuestionsQuery = graphql`
-  query HomeAllQuestionsQuery @connection(key: "HomeAllQuestionsQuery", filters: []) {
+const HomePageAllQuestionsQuery = graphql`
+  query HomePageAllQuestionsQuery @connection(key: "HomePageAllQuestionsQuery", filters: []) {
     questions {
       _id
       description
@@ -20,18 +20,18 @@ const HomeAllQuestionsQuery = graphql`
   }
 `
 
-class Home extends Component {
+class HomePage extends Component {
   render() {
     return (
       <div>
         <QueryRenderer
           environment={environment}
-          query={HomeAllQuestionsQuery}
+          query={HomePageAllQuestionsQuery}
           render={({error, props}) => {
             if (error) {
               return <div>{error.message}</div>
             } else if (props) {
-              return <ListPage questions={props.questions}/>
+              return <QuestionsList questions={props.questions}/>
             }
             return <div>Loading</div>
           }}
@@ -41,4 +41,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default HomePage

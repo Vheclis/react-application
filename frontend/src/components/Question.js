@@ -1,8 +1,8 @@
 import React from 'react';
-import './index.css';
+import '../index.css';
 import { withRouter, Redirect } from 'react-router-dom'
 import { Form, FormGroup, Row, Col, Button } from 'react-bootstrap'
-import DeleteQuestionMutation from './mutations/DeleteQuestionMutation'
+import DeleteQuestionMutation from '../mutations/DeleteQuestionMutation'
 
 const answerText = (answer, index) =>
   <Row key={index}>

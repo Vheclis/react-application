@@ -1,12 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import CreateQuestionPage from './CreateQuestionPage'
-import UpdateQuestionpage from './UpdateQuestionPage'
+import CreateQuestionPage from './pages/CreateQuestionPage'
+import UpdateQuestionpage from './pages/UpdateQuestionPage'
 import './index.css'
-import Navbar from './SiteNavBar'
+import Navbar from './components/SiteNavBar'
 
-import Home from './Home';
+import Home from './pages/HomePage';
 
 render(
   <div>

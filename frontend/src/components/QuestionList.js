@@ -1,11 +1,11 @@
 import React from 'react'
-import './index.css'
+import '../index.css'
 import Question from './Question'
 import { Container, Row, Col } from 'react-bootstrap'
 
 
 
-class ListPage extends React.Component {
+class QuestionList extends React.Component {
 
   getQuestions(props) {
     if (props.questions) {
@@ -32,4 +32,4 @@ class ListPage extends React.Component {
   }
 }
 
-export default ListPage
+export default QuestionList
