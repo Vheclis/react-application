@@ -3,6 +3,7 @@ import "../index.css"
 import { Form, Col, Button, Container } from 'react-bootstrap'
 import Answers from './Answers'
 import MutationIndex from '../mutations/MutationIndex'
+import InputFieldDefault from './InputFieldDefault';
 
 class QuestionForm extends React.Component {
 
@@ -59,7 +60,7 @@ class QuestionForm extends React.Component {
       answersAmount += 1
     } else {
       if (this.state.answers.length >= answersAmount &&
-          this.state.answers.length > 1) {
+        this.state.answers.length > 1) {
         this.removeAnswer()
       }
       answersAmount = answersAmount > 1 ? answersAmount - 1 : answersAmount
@@ -74,20 +75,15 @@ class QuestionForm extends React.Component {
           className="form-config"
           onSubmit={this.handleSubmit}
         >
+          <InputFieldDefault
+            defaultValue={this.state.description}
+            onChange={this.handleChange}
+            name="description"
+            placeholder="Enter a description"
+            label="Description"
+          />
           <Form.Row>
-            <Form.Group as={Col} controlId="formGridDescription">
-              <Form.Label><h2>Description</h2></Form.Label>
-              <Form.Control
-                defaultValue={this.state.description}
-                onChange={this.handleChange}
-                name="description"
-                placeholder="Enter a description"
-                required
-              />
-            </Form.Group>
-
             <Form.Group as={Col} controlId="formGridAnswers">
-
               <Form.Label><h2>Answers</h2></Form.Label>
               <Button
                 variant="success"
@@ -106,29 +102,21 @@ class QuestionForm extends React.Component {
                 answersAmount={this.state.answersAmount}
               />
             </Form.Group>
-          </Form.Row>
-
-          <Form.Group controlId="formGridTheme">
-            <Form.Label><h2>Theme</h2></Form.Label>
-            <Form.Control
-              defaultValue={this.state.theme}
-              onChange={this.handleChange}
-              name="theme"
-              placeholder="Enter a theme"
-              required
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formGridAnswer">
-            <Form.Label><h2>Correct Answer</h2></Form.Label>
-            <Form.Control
-              defaultValue={this.state.correctAnswer}
-              onChange={this.handleChange}
-              name="correctAnswer"
-              placeholder="Enter the correct answer - 1) or 2) or 3) ..."
-              required />
-          </Form.Group>
-
+          </Form.Row>          
+          <InputFieldDefault
+            defaultValue={this.state.theme}
+            onChange={this.handleChange}
+            name="theme"
+            placeholder="Enter a theme"
+            label="Theme"
+          />
+          <InputFieldDefault
+            defaultValue={this.state.correctAnswer}
+            onChange={this.handleChange}
+            name="correctAnswer"
+            placeholder="Enter the correct answer - 1) or 2) or 3) ..."
+            label="Correct Answer"
+          />
           <Button variant="primary" type="submit">
             Submit
           </Button>
