@@ -3,8 +3,10 @@
 Esse serviço graphql está gerenciando um conjunto de questões, permitindo criar, remover, alterar e listar questões.
 
 ## Rodando testes
-Para rodar os testes unitários apenas é necessário estar na root do *graphql service* e digitar
+
+Para rodar os testes unitários é necessário que as dependências estejam instaladas e estar na root do *graphql service*. Rode *npm install* para instalar as dependências e *npm test* para rodar os testes.
 ```
+npm install
 npm test
 ```
 
